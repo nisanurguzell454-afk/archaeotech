@@ -1,23 +1,32 @@
 import sys
-import os
 
-# PHP'den gelen bilgileri alıyoruz
+# PHP'den gelen verileri alıyoruz
 if len(sys.argv) > 3:
     resim_yolu = sys.argv[1]
-    eser_adi = sys.argv[2]
+    eser_adi = sys.argv[2].lower()
     donem = sys.argv[3]
 
-    # Profesyonel analiz notları oluşturuyoruz
-    notlar = {
-        "Selçuklu Dönemi": "Bu eser Selçuklu mimarisinin karakteristik özelliklerini (taş işçiliği, geometrik desenler) taşımaktadır.",
-        "Osmanlı Dönemi": "Osmanlı klasik dönem mimari üslubu ve estetik detayları gözlemlenmektedir.",
-        "Antik Çağ": "Buluntu, antik dönem yerleşim izlerini ve dönemin sanat anlayışını yansıtmaktadır.",
-        "Modern Dönem": "Eser üzerinde restorasyon izleri ve modern koruma teknikleri tespit edilmiştir."
+    # BİLGİ BANKASI
+    bilgi_bankasi = {
+        "çifte minare": "Erzurum'un sembolü olan bu yapı, Selçuklu mimarisinin en seçkin örneklerindendir. 13. yüzyıl sonunda inşa edilmiştir.",
+        "ayasofya": "İstanbul'un simgesi Ayasofya, mimarlık tarihinin dönüm noktalarından biridir. Bizans döneminde kilise, Osmanlı'da cami olarak kullanılmıştır.",
+        "efes": "İzmir Selçuk'taki bu antik kent, Roma döneminin en görkemli yerleşimlerinden biridir.",
+        "nemrut": "Adıyaman'daki dev heykeller Kommagene Kralı I. Antiochos tarafından yaptırılmıştır.",
+        "sumela": "Trabzon'daki sarp kayalıklar üzerine kurulu olan bu manastır, MS 4. yüzyılda inşa edilmiştir.",
+        "göbeklitepe": "Şanlıurfa'daki bu alan, tarihin sıfır noktası olarak bilinen dünyanın en eski tapınağıdır."
     }
 
-    analiz_notu = notlar.get(donem, "Eser üzerinde genel dijital inceleme başlatıldı.")
+    bulunan_bilgi = ""
+    for anahtar, bilgi in bilgi_bankasi.items():
+        if anahtar in eser_adi:
+            bulunan_bilgi = bilgi
+            break
 
-    # PHP'ye göndermek üzere ekrana yazdırıyoruz (Bu kısım analiz.php'de görünecek)
-    print(f"SİSTEM ANALİZİ: {eser_adi} için yapılan incelemede {donem} esintileri tespit edildi. {analiz_notu}")
+    if not bulunan_bilgi:
+        bulunan_bilgi = f"{eser_adi.capitalize()}, {donem} mimari özelliklerini yansıtan kültürel mirasımız için büyük önem taşıyan bir eserdir."
+
+    # PHP'ye temiz çıktı gönderiyoruz
+    print(bulunan_bilgi)
+
 else:
-    print("HATA: Eksik veri gönderildi.")
+    print("HATA: Veri akışı sağlanamadı.")
