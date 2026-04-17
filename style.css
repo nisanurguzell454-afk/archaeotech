@@ -1,0 +1,76 @@
+/* Genel Sayfa Yapısı */
+body {
+    background-color: #f4ece1; /* Antik kağıt rengi */
+    color: #3e2723; /* Koyu toprak tonu */
+    font-family: 'Georgia', serif; /* Akademik ve ağırbaşlı font */
+    margin: 0;
+    padding: 0;
+}
+
+/* Profesyonel Header */
+header {
+    background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1580619305218-8423a7ef79b4?auto=format&fit=crop&w=1200');
+    background-size: cover;
+    background-position: center;
+    color: #fff;
+    padding: 100px 20px;
+    text-align: center;
+    border-bottom: 5px solid #8d6e63;
+}
+
+header h1 {
+    font-size: 3.5em;
+    letter-spacing: 5px;
+    margin: 0;
+    text-transform: uppercase;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+}
+
+/* Veri Giriş Formu (Dashboard) */
+.container {
+    max-width: 900px;
+    margin: -50px auto 50px; /* Header'ın üzerine hafifçe biner */
+}
+
+.card {
+    background: #ffffff;
+    padding: 40px;
+    border-radius: 2px; /* Keskin köşeler daha profesyonel ve ciddi durur */
+    box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+    border-top: 10px solid #8d6e63;
+}
+
+/* Profesyonel Form Elemanları */
+input[type="text"], select, input[type="file"] {
+    width: 100%;
+    padding: 15px;
+    margin: 10px 0;
+    border: 1px solid #d7ccc8;
+    background: #fafafa;
+    font-size: 1em;
+}
+
+.btn-analiz {
+    background-color: #5d4037;
+    color: white;
+    padding: 15px 30px;
+    border: none;
+    cursor: pointer;
+    font-weight: bold;
+    text-transform: uppercase;
+    transition: 0.3s;
+    width: 100%;
+    letter-spacing: 2px;
+}
+
+.btn-analiz:hover {
+    background-color: #8d6e63;
+}
+
+/* Galeri Alanı */
+.galeri-baslik {
+    text-align: center;
+    margin: 50px 0 20px;
+    font-style: italic;
+    font-size: 1.5em;
+}
