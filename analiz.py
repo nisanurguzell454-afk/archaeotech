@@ -1,32 +1,24 @@
 import sys
 
-# PHP'den gelen verileri alıyoruz
+# PHP'den gelen verileri al
 if len(sys.argv) > 3:
-    resim_yolu = sys.argv[1]
     eser_adi = sys.argv[2].lower()
     donem = sys.argv[3]
 
-    # BİLGİ BANKASI
+    # Bilgi havuzu
     bilgi_bankasi = {
-        "çifte minare": "Erzurum'un sembolü olan bu yapı, Selçuklu mimarisinin en seçkin örneklerindendir. 13. yüzyıl sonunda inşa edilmiştir.",
-        "ayasofya": "İstanbul'un simgesi Ayasofya, mimarlık tarihinin dönüm noktalarından biridir. Bizans döneminde kilise, Osmanlı'da cami olarak kullanılmıştır.",
-        "efes": "İzmir Selçuk'taki bu antik kent, Roma döneminin en görkemli yerleşimlerinden biridir.",
-        "nemrut": "Adıyaman'daki dev heykeller Kommagene Kralı I. Antiochos tarafından yaptırılmıştır.",
-        "sumela": "Trabzon'daki sarp kayalıklar üzerine kurulu olan bu manastır, MS 4. yüzyılda inşa edilmiştir.",
-        "göbeklitepe": "Şanlıurfa'daki bu alan, tarihin sıfır noktası olarak bilinen dünyanın en eski tapınağıdır."
+        "ayasofya": "İstanbul'daki Ayasofya, dünya mimarlık tarihinin en önemli eserlerinden biridir. Bizans ve Osmanlı izlerini taşır.",
+        "çifte minare": "Erzurum'un sembolü olan bu yapı, Selçuklu taş işçiliğinin zirve noktasıdır.",
+        "efes": "İzmir'deki Efes antik kenti, Roma döneminin en görkemli yerleşim birimidir."
     }
 
-    bulunan_bilgi = ""
-    for anahtar, bilgi in bilgi_bankasi.items():
+    # Arama yap
+    cevap = "Genel Analiz: Bu eser " + donem + " donemine ait onemli bir mirastir."
+    for anahtar in bilgi_bankasi:
         if anahtar in eser_adi:
-            bulunan_bilgi = bilgi
+            cevap = bilgi_bankasi[anahtar]
             break
-
-    if not bulunan_bilgi:
-        bulunan_bilgi = f"{eser_adi.capitalize()}, {donem} mimari özelliklerini yansıtan kültürel mirasımız için büyük önem taşıyan bir eserdir."
-
-    # PHP'ye temiz çıktı gönderiyoruz
-    print(bulunan_bilgi)
-
+    
+    print(cevap)
 else:
-    print("HATA: Veri akışı sağlanamadı.")
+    print("Veri eksik.")
