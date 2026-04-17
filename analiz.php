@@ -1,40 +1,35 @@
-<?php
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
+import sys
 
-echo "<html><head><link rel='stylesheet' href='style.css'></head><body style='background:#f4ece1; padding:20px; text-align:center;'>";
+# PHP'den gelen verileri alıyoruz
+if len(sys.argv) > 3:
+    resim_yolu = sys.argv[1]
+    eser_adi = sys.argv[2].lower() # Küçük harfe çeviriyoruz ki arama kolay olsun
+    donem = sys.argv[3]
 
-if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_FILES['eser_resmi'])) {
-    
-    $eser_adi = $_POST['eser_adi'] ?? 'Adsız';
-    $donem = $_POST['donem'] ?? 'Bilinmiyor';
-    $resimler_klasoru = 'resimler/';
+    # TÜRKİYE TARİHİ ESERLER BİLGİ BANKASI
+    bilgi_bankasi = {
+        "çifte minare": "Erzurum'un sembolü olan bu yapı, Selçuklu mimarisinin en seçkin örneklerindendir. 13. yüzyıl sonunda inşa edilmiştir. Taç kapısındaki taş işçiliği ve devasa minareleriyle tanınır.",
+        "ayasofya": "İstanbul'un en önemli simgelerinden biridir. Bizans İmparatoru I. Justinianus tarafından yaptırılmış, Osmanlı döneminde camiye çevrilmiştir. Mimarlık tarihinin dönüm noktalarından biridir.",
+        "efes": "İzmir Selçuk'ta bulunan antik kent, dünyanın en önemli arkeolojik alanlarından biridir. Celsus Kütüphanesi ve devasa tiyatrosuyla Roma dönemi ihtişamını yansıtır.",
+        "nemrut": "Adıyaman'da bulunan bu devasa heykeller, Kommagene Kralı I. Antiochos tarafından yaptırılmıştır. UNESCO Dünya Mirası listesinde yer alan görkemli bir kutsal alandır.",
+        "sumela": "Trabzon'daki sarp kayalıklar üzerine kurulu olan bu manastır, MS 4. yüzyılda kurulmuştur. Freskleri ve mimarisiyle Doğu Karadeniz'in en etkileyici tarihi yapılarından biridir.",
+        "göbeklitepe": "Şanlıurfa yakınlarındaki bu alan, tarihin sıfır noktası olarak bilinir. İnsanlık tarihindeki en eski tapınak kompleksidir ve yerleşik hayata geçişle ilgili ezberleri bozmuştur."
+    }
 
-    if (!file_exists($resimler_klasoru)) { mkdir($resimler_klasoru, 0777, true); }
+    # Eser adını kontrol ediyoruz, eğer bankada yoksa genel bir açıklama yapıyoruz
+    bulunan_bilgi = ""
+    for anahtar, bilgi in bilgi_bankasi.items():
+        if anahtar in eser_adi:
+            bulunan_bilgi = bilgi
+            break
 
-    $dosya_adi = time() . '_' . basename($_FILES['eser_resmi']['name']);
-    $hedef_yol = $resimler_klasoru . $dosya_adi;
+    if not bulunan_bilgi:
+        bulunan_bilgi = f"{eser_adi} hakkında genel bir inceleme yapıldı. {donem} mimari özellikleri ve dönemin sanat anlayışını yansıtan bu eser, kültürel mirasımız için büyük önem taşımaktadır."
 
-    if (move_uploaded_file($_FILES['eser_resmi']['tmp_name'], $hedef_yol)) {
-        
-        // Python'ı çalıştırıyoruz
-        $komut = "python3 analiz.py " . escapeshellarg($hedef_yol) . " " . escapeshellarg($eser_adi) . " " . escapeshellarg($donem) . " 2>&1";
-        $python_cikti = shell_exec($komut);
+    # PHP'ye sonuç gönderiyoruz
+    print(f"<h3>🏛️ ANALİZ RAPORU</h3>")
+    print(f"<p><strong>Tespit Edilen Bilgi:</strong> {bulunan_bilgi}</p>")
+    print(f"<p style='color:#8d6e63; font-size:0.9em;'><em>*Sistem veritabanı üzerinden otomatik oluşturulmuştur.</em></p>")
 
-        echo "<div class='card' style='max-width:800px; margin:auto;'>";
-        echo "<h2 style='color:#5d4037;'>🏛️ DİJİTAL ENVANTER RAPORU</h2>";
-        echo "<hr style='border:1px solid #d7ccc8;'>";
-        
-        // Python'dan gelen bilgiyi altın rengi bir kutuda gösteriyoruz
-        echo "<div style='background:#fdf5e6; border-left:5px solid #d4af37; padding:15px; margin:20px 0; text-align:left; font-style:italic;'>";
-        echo $python_cikti;
-        echo "</div>";
-
-        echo "<img src='$hedef_yol' style='max-width:100%; border:10px solid white; box-shadow:0 10px 30px rgba(0,0,0,0.2);'>";
-        echo "<br><br><a href='index.php' class='btn-analiz' style='text-decoration:none; display:inline-block;'>Yeni Kayıt Ekle</a>";
-        echo "</div>";
-
-    } else { echo "<div style='color:red;'>HATA: Resim yüklenemedi!</div>"; }
-}
-echo "</body></html>";
-?>
+else:
+    print("HATA: Veri akışı sağlanamadı.")
