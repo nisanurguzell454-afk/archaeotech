@@ -1,35 +1,28 @@
-import sys
+<?php
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
 
-# PHP'den gelen verileri alıyoruz
-if len(sys.argv) > 3:
-    resim_yolu = sys.argv[1]
-    eser_adi = sys.argv[2].lower() # Küçük harfe çeviriyoruz ki arama kolay olsun
-    donem = sys.argv[3]
+echo "<html><head><link rel='stylesheet' href='style.css'></head><body style='background:#f4ece1; text-align:center; padding:20px;'>";
 
-    # TÜRKİYE TARİHİ ESERLER BİLGİ BANKASI
-    bilgi_bankasi = {
-        "çifte minare": "Erzurum'un sembolü olan bu yapı, Selçuklu mimarisinin en seçkin örneklerindendir. 13. yüzyıl sonunda inşa edilmiştir. Taç kapısındaki taş işçiliği ve devasa minareleriyle tanınır.",
-        "ayasofya": "İstanbul'un en önemli simgelerinden biridir. Bizans İmparatoru I. Justinianus tarafından yaptırılmış, Osmanlı döneminde camiye çevrilmiştir. Mimarlık tarihinin dönüm noktalarından biridir.",
-        "efes": "İzmir Selçuk'ta bulunan antik kent, dünyanın en önemli arkeolojik alanlarından biridir. Celsus Kütüphanesi ve devasa tiyatrosuyla Roma dönemi ihtişamını yansıtır.",
-        "nemrut": "Adıyaman'da bulunan bu devasa heykeller, Kommagene Kralı I. Antiochos tarafından yaptırılmıştır. UNESCO Dünya Mirası listesinde yer alan görkemli bir kutsal alandır.",
-        "sumela": "Trabzon'daki sarp kayalıklar üzerine kurulu olan bu manastır, MS 4. yüzyılda kurulmuştur. Freskleri ve mimarisiyle Doğu Karadeniz'in en etkileyici tarihi yapılarından biridir.",
-        "göbeklitepe": "Şanlıurfa yakınlarındaki bu alan, tarihin sıfır noktası olarak bilinir. İnsanlık tarihindeki en eski tapınak kompleksidir ve yerleşik hayata geçişle ilgili ezberleri bozmuştur."
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    $eser_adi = $_POST['eser_adi'] ?? 'Adsiz';
+    $donem = $_POST['donem'] ?? 'Bilinmiyor';
+    $target_file = "resimler/" . time() . "_" . basename($_FILES["eser_resmi"]["name"]);
+
+    if (move_uploaded_file($_FILES["eser_resmi"]["tmp_name"], $target_file)) {
+        // Python'ı çalıştır
+        $komut = "python3 analiz.py " . escapeshellarg($target_file) . " " . escapeshellarg($eser_adi) . " " . escapeshellarg($donem) . " 2>&1";
+        $cikti = shell_exec($komut);
+
+        echo "<div class='card' style='max-width:600px; margin:auto; padding:20px;'>";
+        echo "<h2>🏛️ ARKEOLOJİK RAPOR</h2>";
+        echo "<div style='background:#fffde7; padding:15px; border:1px solid #fbc02d; margin-bottom:20px;'>";
+        echo "<strong>Sistem Notu:</strong> " . $cikti;
+        echo "</div>";
+        echo "<img src='$target_file' style='width:100%; border-radius:5px;'>";
+        echo "<br><br><a href='index.php' class='btn-analiz'>Yeni Kayıt</a>";
+        echo "</div>";
     }
-
-    # Eser adını kontrol ediyoruz, eğer bankada yoksa genel bir açıklama yapıyoruz
-    bulunan_bilgi = ""
-    for anahtar, bilgi in bilgi_bankasi.items():
-        if anahtar in eser_adi:
-            bulunan_bilgi = bilgi
-            break
-
-    if not bulunan_bilgi:
-        bulunan_bilgi = f"{eser_adi} hakkında genel bir inceleme yapıldı. {donem} mimari özellikleri ve dönemin sanat anlayışını yansıtan bu eser, kültürel mirasımız için büyük önem taşımaktadır."
-
-    # PHP'ye sonuç gönderiyoruz
-    print(f"<h3>🏛️ ANALİZ RAPORU</h3>")
-    print(f"<p><strong>Tespit Edilen Bilgi:</strong> {bulunan_bilgi}</p>")
-    print(f"<p style='color:#8d6e63; font-size:0.9em;'><em>*Sistem veritabanı üzerinden otomatik oluşturulmuştur.</em></p>")
-
-else:
-    print("HATA: Veri akışı sağlanamadı.")
+}
+echo "</body></html>";
+?>
