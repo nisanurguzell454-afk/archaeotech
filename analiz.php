@@ -71,4 +71,16 @@
                 echo "</div>";
                 
                 // Harita açılmazsa diye alternatif buton
-                $direct_map_link = "https://www.google.com/maps/search/"
+                $direct_map_link = "https://www.google.com/maps/search/" . urlencode($data['title']);
+                echo "<a href='$direct_map_link' target='_blank' class='btn-map-link'>🌐 Google Haritalar'da Tam Ekran Aç</a>";
+                
+            } else {
+                echo "<h2>🔍 Hata</h2><p>Veri alınırken bir sorun oluştu.</p>";
+            }
+        }
+        ?>
+        <br>
+        <a href="index.php" class="btn-back">← Başka Bir Yer Seç</a>
+    </div>
+</body>
+</html>
