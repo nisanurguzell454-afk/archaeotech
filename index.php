@@ -103,7 +103,7 @@
             header h1 { font-size: 1.8rem; }
             .search-card { padding: 25px 15px; }
         }
-    </style>
+        </style>
 </head>
 <body>
 
