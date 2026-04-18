@@ -19,46 +19,29 @@
         <?php
         $q = $_GET['q'] ?? '';
         if ($q) {
-            // Wikipedia'da en yakın başlığı bulmak için CURL kullanıyoruz (Daha güvenli)
-            $search_url = "https://tr.wikipedia.org/w/api.php?action=query&list=search&srsearch=" . urlencode($q) . "&format=json";
-            
+            // Wikipedia'dan en doğru bilgiyi çekiyoruz
+            $url = "https://tr.wikipedia.org/api/rest_v1/page/summary/" . urlencode($q);
             $ch = curl_init();
-            curl_setopt($ch, CURLOPT_URL, $search_url);
+            curl_setopt($ch, CURLOPT_URL, $url);
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
             curl_setopt($ch, CURLOPT_USERAGENT, 'ArchaeoTechBot/1.0');
-            $search_res = curl_exec($ch);
+            $res = curl_exec($ch);
             curl_close($ch);
-            
-            $search_data = json_decode($search_res, true);
+            $data = json_decode($res, true);
 
-            if (!empty($search_data['query']['search'])) {
-                $best_title = $search_data['query']['search'][0]['title'];
-                
-                // Özet ve Resim çekme
-                $url = "https://tr.wikipedia.org/api/rest_v1/page/summary/" . urlencode($best_title);
-                $ch_info = curl_init();
-                curl_setopt($ch_info, CURLOPT_URL, $url);
-                curl_setopt($ch_info, CURLOPT_RETURNTRANSFER, true);
-                curl_setopt($ch_info, CURLOPT_USERAGENT, 'ArchaeoTechBot/1.0');
-                $res = curl_exec($ch_info);
-                curl_close($ch_info);
-                
-                $data = json_decode($res, true);
-
+            if (isset($data['title'])) {
                 echo "<h2>🏛️ " . $data['title'] . "</h2>";
-                
                 if (isset($data['originalimage']['source'])) {
-                    echo "<img src='" . $data['originalimage']['source'] . "' style='width:100%; border-radius:15px; margin-top:10px;'>";
+                    echo "<img src='" . $data['originalimage']['source'] . "' style='width:100%; border-radius:15px;'>";
                 }
+                echo "<div class='bilgi'>" . ($data['extract'] ?? 'Bilgi yükleniyor...') . "</div>";
                 
-                echo "<div class='bilgi'>" . ($data['extract'] ?? 'Bilgi bulunamadı.') . "</div>";
-                
-                // Google Maps
+                // Canlı Harita
                 echo "<div class='map-box'>";
-                echo "<iframe width='100%' height='300' frameborder='0' src='https://www.google.com/maps/search/" . urlencode($data['title']) . "&t=&z=14&ie=UTF8&iwloc=&output=embed'></iframe>";
+                echo "<iframe width='100%' height='350' frameborder='0' src='https://www.google.com/maps/search/" . urlencode($data['title']) . "&t=&z=14&ie=UTF8&iwloc=&output=embed'></iframe>";
                 echo "</div>";
             } else {
-                echo "<h2>🔍 Sonuç Bulunamadı</h2><p>Lütfen daha bilinen bir yer adı deneyin.</p>";
+                echo "<h2>🔍 Bilgi Bulunamadı</h2><p>Seçilen yer hakkında bilgi alınırken bir hata oluştu.</p>";
             }
         }
         ?>
