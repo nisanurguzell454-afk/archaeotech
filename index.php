@@ -27,7 +27,7 @@
         <div class="search-card">
             <h3 style="margin-bottom:20px;">🔍 Hangi Eseri Merak Ediyorsunuz?</h3>
             <form action="analiz.php" method="post">
-                <input type="text" name="eser_adi" placeholder="Örn: Erzurum Kalesi, Efes..." required>
+                <input type="text" name="eser_adi" placeholder="Örn: Efes, Erzurum Kalesi..." required>
                 <button type="submit" class="btn-discover">KEŞFETMEYE BAŞLA</button>
             </form>
         </div>
