@@ -1,43 +1,52 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;500;700&display=swap');
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
 body {
     font-family: 'Montserrat', sans-serif;
-    background-color: #f8f9fa;
-    color: #333;
-    line-height: 1.8; /* Yazıları ferahlatır */
-}
-
-.result-container {
-    max-width: 800px;
-    margin: 40px auto;
-    background: white;
-    padding: 40px;
-    border-radius: 20px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
-}
-
-.content-text {
-    font-size: 1.1em;
-    font-weight: 300;
-    text-align: justify;
-    color: #444;
-}
-
-.btn-map {
-    display: inline-block;
-    background: #d4af37;
-    color: white;
-    padding: 12px 25px;
-    border-radius: 50px;
-    text-decoration: none;
-    margin: 20px 0;
-    font-weight: 500;
-    transition: 0.3s;
-}
-
-.btn-map:hover { background: #b8962d; transform: scale(1.05); }
-
-footer {
-    padding: 40px;
+    background: #fdfaf5;
+    color: #3e2723;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
     text-align: center;
-    font-size: 0.9em;
-    color: #888;
 }
+
+.main-wrapper { width: 100%; max-width: 500px; padding: 20px; }
+
+/* Başlık Ayarları */
+header h1 { font-size: 2.2rem; letter-spacing: 5px; color: #5d4037; margin-bottom: 30px; }
+
+/* Kart Tasarımı */
+.search-card, .sonuc-kart {
+    background: #ffffff;
+    padding: 35px 25px;
+    border-radius: 25px;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.06);
+    border-top: 6px solid #d4af37;
+}
+
+/* Giriş Alanları */
+input[type="text"] {
+    width: 100%; padding: 18px; border: 1px solid #ddd; border-radius: 12px;
+    margin-bottom: 20px; font-size: 1rem; outline: none;
+}
+
+/* Butonlar */
+.btn-discover, .btn-harita, .btn-geri {
+    display: block; width: 100%; padding: 18px; border: none; border-radius: 12px;
+    font-weight: 700; cursor: pointer; text-decoration: none; transition: 0.3s;
+}
+
+.btn-discover { background: #5d4037; color: white; }
+.btn-harita { background: #d4af37; color: white; margin: 20px 0; font-size: 0.9rem; }
+.btn-geri { background: transparent; color: #8d6e63; font-size: 0.8rem; }
+
+.btn-discover:hover { background: #d4af37; }
+
+/* Metin Alanları */
+.bilgi-metni { text-align: justify; line-height: 1.8; font-size: 0.95rem; color: #555; margin: 20px 0; }
+.kaynak { font-size: 0.75rem; color: #aaa; }
+
+footer { margin-top: 50px; font-size: 0.8rem; color: #a1887f; }
