@@ -1,45 +1,61 @@
 import sys
 import wikipedia
-import requests
+import warnings
 
+# Wikipedia'daki gereksiz uyarıları ve HTML parser hatalarını gizler
+warnings.filterwarnings("ignore")
+
+# Wikipedia dilini Türkçe olarak sabitle
 wikipedia.set_lang("tr")
 
-if len(sys.argv) > 2:
-    eser_adi = sys.argv[2]
-    try:
-        # Wikipedia sayfasını detaylı çek
-        sayfa = wikipedia.page(eser_adi, auto_suggest=True)
-        # Orijinal metni al (Uyarısız, temiz)
-        ozet = sayfa.summary
+def analiz_et():
+    # PHP'den gelen eser adını alıyoruz
+    if len(sys.argv) > 1:
+        # sys.argv[1] genellikle boş veya dummy olur, asıl veri 2. veya 3. sırada gelebilir 
+        # Garantiye almak için tüm argümanları birleştiriyoruz
+        arama_terimi = " ".join(sys.argv[1:]).strip()
         
-        # Orijinal Resim ve Harita URL'leri
-        # Wikipedia'daki ilk resmi ana görsel olarak alıyoruz
-        resim_url = sayfa.images[0] if sayfa.images else ""
-        google_maps_embed_url = f"https://www.google.com/maps/embed/v1/place?key=YOUR_ACTUAL_GOOGLE_MAPS_API_KEY&q={sayfa.title.replace(' ', '+')}"
-        
-        # NOT: Gerçek bir API anahtarı olmadan Iframe tam çalışmayabilir.
-        # Jüride garanti olması için iframe yerine doğrudan Google Maps linki de ekliyoruz.
+        if not arama_terimi:
+            print("<div class='error-card'>⚠️ Eser adı alınamadı.</div>")
+            return
 
-        print(f"<div class='result-container'>")
-        print(f"<h2>🏛️ {sayfa.title}</h2>")
-        
-        # Eğer resim varsa göster
-        if resim_url:
-            print(f"<img src='{resim_url}' class='eser-resmi' alt='{sayfa.title}'>")
-        
-        print(f"<div class='info-text'>{ozet}</div>")
-        
-        print(f"<div class='map-section'>")
-        print(f"<h3>📍 Harita Üzerindeki Konumu</h3>")
-        # Iframe ile canlı harita gösterimi (Engellenirse jüride linki kullan)
-        print(f"<iframe width='100%' height='300' frameborder='0' style='border:0; border-radius:10px;' src='{google_maps_embed_url}' allowfullscreen></iframe>")
-        # Eğer API anahtarın yoksa şu link daha garanti:
-        print(f"<br><a href='{f'https://www.google.com/maps/search/{sayfa.title.replace(' ', '+')}'}' target='_blank' class='btn-harita'>Google Haritalar'da Canlı Gör</a>")
-        print(f"</div>")
-        
-        print(f"</div>")
+        try:
+            # Wikipedia'da sayfayı bul
+            # auto_suggest=True sayesinde küçük harf hatalarını kendi düzeltir
+            sayfa = wikipedia.page(arama_terimi, auto_suggest=True)
+            
+            # Başlık ve Özet (İlk 6 cümleyi alıyoruz, boğucu olmasın)
+            baslik = sayfa.title
+            ozet = ". ".join(sayfa.summary.split('.')[:6]) + "."
+            
+            # PHP'ye gidecek HTML çıktısını hazırlıyoruz
+            print(f"<div class='result-container'>")
+            print(f"<h2>🏛️ {baslik}</h2>")
+            
+            # Wikipedia'daki ana resmi çekmeye çalışıyoruz
+            if sayfa.images:
+                # Genellikle ilk resim en alakalı olandır
+                print(f"<img src='{sayfa.images[0]}' class='eser-img' alt='{baslik}'>")
+            
+            print(f"<div class='bilgi'>{ozet}</div>")
+            
+            # CANLI HARİTA BÖLÜMÜ (Invalid Request hatasını bitiren format)
+            print(f"<div class='map-box'>")
+            print(f"<div class='map-title'>📍 {baslik} - Harita Konumu</div>")
+            map_url = f"https://maps.google.com/maps?q={baslik.replace(' ', '+')}&t=&z=14&ie=UTF8&iwloc=&output=embed"
+            print(f"<iframe width='100%' height='400' frameborder='0' style='border:0;' src='{map_url}' allowfullscreen></iframe>")
+            print(f"</div>")
+            
+            print(f"</div>")
 
-    except Exception as e:
-        print(f"<div class='error-card'>🔍 '{eser_adi}' hakkında spesifik bir bilgi bulunamadı. Lütfen ismi tam ve doğru yazmayı deneyin.</div>")
-else:
-    print("Veri hatası.")
+        except wikipedia.exceptions.DisambiguationError as e:
+            print(f"<div class='error-card'>🔍 Birden fazla sonuç bulundu. Lütfen daha spesifik yazın. (Örn: {e.options[0]})</div>")
+        except wikipedia.exceptions.PageError:
+            print(f"<div class='error-card'>🔍 '{arama_terimi}' hakkında Wikipedia'da kayıt bulunamadı.</div>")
+        except Exception as e:
+            print(f"<div class='error-card'>⚠️ Bir hata oluştu: Lütfen internet bağlantısını kontrol edin.</div>")
+    else:
+        print("<div class='error-card'>⚠️ Geçersiz istek: Eser adı eksik.</div>")
+
+if __name__ == "__main__":
+    analiz_et()
