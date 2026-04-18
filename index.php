@@ -2,64 +2,42 @@
 <html lang="tr">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ArchaeoTech | Dijital Arkeoloji ve Analiz Sistemi</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>ArchaeoTech | Akıllı Analiz</title>
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Roboto:wght@300;400&display=swap" rel="stylesheet">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-status-bar-style" content="black">
 </head>
 <body>
 
 <header>
-    <div class="header-content">
-        <h1>ARCHAEOTECH</h1>
-        <p>Nisa Nur Güzel | Dijital Arkeoloji Veri Analiz Terminali</p>
-    </div>
+    <h1>ARCHAEOTECH</h1>
+    <p>Dijital Arkeoloji ve Dönem Teşhis Sistemi</p>
 </header>
 
 <div class="container">
     <div class="card">
-        <h3>Envanter Kayıt ve Dijital Analiz</h3>
-        <p>Sisteme yeni bir arkeolojik buluntu yükleyin. Python analiz motoru, yüklediğiniz görseli otomatik olarak işleyecek ve arşiv numarası atayacaktır.</p>
+        <h3>Eser Teşhis Paneli</h3>
+        <p>Eserin fotoğrafını yükleyin ve adını yazın. Yapay zeka motorumuz dönemi ve tarihi detayları belirleyecektir.</p>
         
         <form action="analiz.php" method="post" enctype="multipart/form-data">
             <div class="form-group">
-                <label for="eser_resmi">Eser Görseli Seçin:</label>
-                <input type="file" name="eser_resmi" id="eser_resmi" required>
+                <label>Eser Fotoğrafı</label>
+                <input type="file" name="eser_resmi" accept="image/*" required>
             </div>
 
             <div class="form-group">
-                <input type="text" name="eser_adi" placeholder="Eserin Adı (Örn: Çifte Minareli Medrese Detayı)" required>
+                <input type="text" name="eser_adi" placeholder="Eserin Adını Yazın (Örn: Sümela Manastırı)" required>
             </div>
 
-            <div class="form-group">
-                <select name="donem" required>
-                    <option value="" disabled selected>Tarihi Dönem Seçiniz</option>
-                    <option value="Antik Çağ">Antik Çağ</option>
-                    <option value="Selçuklu Dönemi">Selçuklu Dönemi</option>
-                    <option value="Osmanlı Dönemi">Osmanlı Dönemi</option>
-                    <option value="Modern Dönem">Modern Dönem / Restorasyon</option>
-                </select>
-            </div>
-
-            <button type="submit" class="btn-analiz">Sisteme İşle ve Arşivle</button>
+            <button type="submit" class="btn-analiz">ANALİZİ BAŞLAT</button>
         </form>
-    </div>
-
-    <div class="galeri-baslik">
-        <hr>
-        <span>Son Analiz Edilen Bulgular</span>
-        <hr>
-    </div>
-
-    <div class="archive-info">
-        <p style="text-align: center; color: #8d6e63; font-style: italic;">
-            Sistem şu an yeni veri girişine hazırdır. Analiz motoru (Python 3.x) arka planda aktif.
-        </p>
     </div>
 </div>
 
 <footer>
-    <p>&copy; 2026 ArchaeoTech Projesi - Atatürk Üniversitesi Bilgisayar Programcılığı Mezuniyet Çalışması</p>
+    <p>Nisa Nur Güzel | Atatürk Üniversitesi Mezuniyet Projesi &copy; 2026</p>
 </footer>
 
 </body>
