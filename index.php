@@ -3,15 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ArchaeoTech | Türkiye'yi Keşfet</title>
+    <title>ArchaeoTech | Türkiye'nin Tarihi Mirası</title>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    
     <style>
-        /* TÜM SAYFA AYARLARI */
+        /* SIFIRLAMA VE ANA AYARLAR */
         * { box-sizing: border-box; margin: 0; padding: 0; }
         
-        body, html { height: 100%; }
+        html, body { 
+            height: 100%; 
+            margin: 0; 
+            overflow: hidden; /* Sayfanın gereksiz kaymasını önler */
+        }
 
-        /* ARKA PLAN: TÜRKİYE'NİN TARİHİ ESERLERİNİ KAPSAYAN ÖZEL GÖRSEL */
+        /* ARKA PLAN: TÜRKİYE'NİN TARİHİ ESERLERİNİ KAPSAYAN KOLAJ */
         body {
             font-family: 'Montserrat', sans-serif;
             background: url('https://w0.peakpx.com/wallpaper/453/193/HD-wallpaper-turkey-historical-places-collage.jpg') no-repeat center center fixed;
@@ -19,30 +24,30 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            overflow: hidden;
+            position: relative;
         }
 
-        /* ARKA PLANI KARARTAN KATMAN (YAZILARIN OKUNMASI İÇİN) */
+        /* ARKA PLANI KARARTAN KATMAN (Yazıların okunması için şart) */
         .overlay {
             position: absolute;
             top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0, 0, 0, 0.4);
+            background: rgba(0, 0, 0, 0.45); /* %45 siyah karartma */
             z-index: 1;
         }
 
-        /* ANA İÇERİK KUTUSU */
+        /* İÇERİK KONTEYNERI */
         .main-wrapper {
             position: relative;
             z-index: 2;
             text-align: center;
             width: 90%;
-            max-width: 500px;
+            max-width: 450px;
         }
 
-        /* ŞIK BAŞLIK */
+        /* LOGO VE BAŞLIK */
         h1 {
             font-family: 'Playfair Display', serif;
-            font-size: 3.5rem;
+            font-size: 3.2rem;
             color: #ffffff;
             letter-spacing: 6px;
             margin-bottom: 5px;
@@ -53,13 +58,13 @@
             color: #f1f1f1;
             font-weight: 300;
             margin-bottom: 40px;
-            letter-spacing: 2px;
+            letter-spacing: 1px;
             text-shadow: 1px 1px 5px rgba(0,0,0,0.5);
         }
 
-        /* ARAMA KARTI */
+        /* ARAMA KARTI (BEYAZ KUTU) */
         .card {
-            background: rgba(255, 255, 255, 0.93);
+            background: rgba(255, 255, 255, 0.94);
             padding: 45px 30px;
             border-radius: 30px;
             box-shadow: 0 20px 50px rgba(0,0,0,0.4);
@@ -70,6 +75,7 @@
             margin-bottom: 25px;
             color: #5d4037;
             font-size: 1.1rem;
+            font-weight: 700;
         }
 
         /* GİRİŞ ALANI */
@@ -81,13 +87,12 @@
             margin-bottom: 25px;
             font-size: 1rem;
             outline: none;
-            transition: 0.3s;
             text-align: center;
+            font-family: 'Montserrat', sans-serif;
         }
 
         input[type="text"]:focus {
             border-color: #d4af37;
-            box-shadow: 0 0 10px rgba(212, 175, 55, 0.2);
         }
 
         /* BUTON */
@@ -101,7 +106,7 @@
             font-weight: 700;
             font-size: 1.1rem;
             cursor: pointer;
-            transition: 0.4s;
+            transition: 0.4s ease;
             letter-spacing: 1px;
         }
 
@@ -111,13 +116,13 @@
             box-shadow: 0 10px 20px rgba(0,0,0,0.2);
         }
 
-        /* ALT BİLGİ */
+        /* FOOTER */
         footer {
-            margin-top: 60px;
+            margin-top: 55px;
             color: #ffffff;
             font-size: 0.85rem;
-            line-height: 1.8;
-            text-shadow: 1px 1px 5px #000;
+            line-height: 1.6;
+            text-shadow: 1px 1px 5px rgba(0,0,0,0.8);
         }
     </style>
 </head>
@@ -134,7 +139,7 @@
     <div class="card">
         <h3>🔍 Hangi Eseri Merak Ediyorsunuz?</h3>
         <form action="analiz.php" method="GET">
-            <input type="text" name="q" placeholder="Örn: Erzurum Kalesi, Efes, Nemrut..." required>
+            <input type="text" name="q" placeholder="Eser Adını Yazın (Örn: Nemrut Dağı)" required>
             <button type="submit">KEŞFETMEYE BAŞLA</button>
         </form>
     </div>
