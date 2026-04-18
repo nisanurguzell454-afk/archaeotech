@@ -73,4 +73,24 @@ input[type="text"], select, input[type="file"] {
     margin: 50px 0 20px;
     font-style: italic;
     font-size: 1.5em;
+    /* Mevcut stillere ek olarak mobil düzenleme */
+body {
+    -webkit-tap-highlight-color: transparent;
+    overflow-x: hidden;
+}
+
+@media (max-width: 600px) {
+    header { padding: 30px 15px; }
+    header h1 { font-size: 1.8em; letter-spacing: 2px; }
+    .container { margin-top: -30px; padding: 0 15px; }
+    .card { padding: 25px; border-radius: 15px; }
+    input[type="text"], .btn-analiz { padding: 18px; font-size: 16px; }
+}
+
+.btn-analiz {
+    background: #5d4037;
+    border-radius: 8px;
+    margin-top: 15px;
+    box-shadow: 0 5px 15px rgba(93, 64, 55, 0.3);
+}
 }
