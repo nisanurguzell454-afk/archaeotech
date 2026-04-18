@@ -3,34 +3,37 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ArchaeoTech | Tarihi Keşif</title>
+    <title>ArchaeoTech | Türkiye'nin Mirası</title>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    
     <style>
-        /* SIFIRLAMA VE ANA AYARLAR */
         * { box-sizing: border-box; margin: 0; padding: 0; }
         
-        body, html { height: 100%; margin: 0; overflow: hidden; }
+        html, body { height: 100%; width: 100%; margin: 0; overflow: hidden; }
 
-        /* ARKA PLAN: TÜRKİYE'NİN TARİHİ ESERLERİNİ KAPSAYAN KOLAJ */
+        /* ARKA PLAN: TÜRKİYE'NİN TARİHİ YERLERİNİ KAPSAYAN ÖZEL KOLAJ */
         body {
             font-family: 'Montserrat', sans-serif;
-            background: url('https://w0.peakpx.com/wallpaper/453/193/HD-wallpaper-turkey-historical-places-collage.jpg') no-repeat center center fixed;
-            background-size: cover;
+            /* Bu resim Türkiye'nin ikonik yerlerini içeren bir kolajdır */
+            background-image: url('https://w0.peakpx.com/wallpaper/453/193/HD-wallpaper-turkey-historical-places-collage.jpg');
+            background-position: center center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-size: cover; /* Resmi tüm ekrana hatasız yayar */
             display: flex;
             justify-content: center;
             align-items: center;
             position: relative;
         }
 
-        /* KARARTMA KATMANI */
+        /* ARKA PLANI ŞIKLAŞTIRAN VE OKUNABİLİRLİĞİ ARTIRAN KARARTMA */
         .overlay {
             position: absolute;
             top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0, 0, 0, 0.5);
+            background: rgba(0, 0, 0, 0.5); /* Siyahlık oranını %50 yaptık */
             z-index: 1;
         }
 
-        /* İÇERİK KUTUSU */
         .main-wrapper {
             position: relative;
             z-index: 2;
@@ -41,36 +44,42 @@
 
         h1 {
             font-family: 'Playfair Display', serif;
-            font-size: 3rem;
+            font-size: 3.5rem;
             color: #ffffff;
             letter-spacing: 5px;
             margin-bottom: 10px;
-            text-shadow: 2px 2px 10px rgba(0,0,0,0.7);
+            text-shadow: 3px 3px 15px rgba(0,0,0,0.8);
         }
 
-        header p { color: #f1f1f1; margin-bottom: 30px; text-shadow: 1px 1px 5px rgba(0,0,0,0.5); }
+        header p { 
+            color: #f1f1f1; 
+            margin-bottom: 35px; 
+            font-weight: 300;
+            text-shadow: 1px 1px 5px rgba(0,0,0,0.6); 
+        }
 
-        /* KART TASARIMI */
+        /* SEÇİM KARTI */
         .card {
-            background: rgba(255, 255, 255, 0.95);
-            padding: 40px;
-            border-radius: 25px;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.4);
-            border-top: 8px solid #d4af37;
+            background: rgba(255, 255, 255, 0.96);
+            padding: 45px 35px;
+            border-radius: 30px;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.5);
+            border-top: 10px solid #d4af37; /* Altın Sarısı Kalın Çizgi */
         }
 
-        /* SEÇİM KUTUSU (SELECT) STİLİ */
+        .card h3 { margin-bottom: 25px; color: #5d4037; font-size: 1.2rem; }
+
         select {
             width: 100%;
-            padding: 15px;
-            border-radius: 10px;
-            border: 1px solid #ddd;
+            padding: 18px;
+            border-radius: 12px;
+            border: 2px solid #ddd;
             margin-bottom: 25px;
             font-size: 1rem;
             font-family: 'Montserrat', sans-serif;
-            background-color: white;
-            cursor: pointer;
+            background-color: #fff;
             outline: none;
+            text-align: center;
         }
 
         button {
@@ -81,13 +90,15 @@
             border: none;
             border-radius: 12px;
             font-weight: 700;
+            font-size: 1.1rem;
             cursor: pointer;
-            transition: 0.3s;
+            transition: 0.4s;
+            letter-spacing: 1px;
         }
 
         button:hover { background: #d4af37; transform: translateY(-3px); }
 
-        footer { margin-top: 40px; color: white; font-size: 0.8rem; text-shadow: 1px 1px 5px #000; }
+        footer { margin-top: 60px; color: white; font-size: 0.9rem; text-shadow: 1px 1px 10px #000; }
     </style>
 </head>
 <body>
@@ -101,36 +112,8 @@
     </header>
 
     <div class="card">
-        <h3>📍 Keşfetmek İstediğiniz Yeri Seçin</h3>
-        <br>
+        <h3>🏛️ Keşfedilecek Yeri Seçiniz</h3>
         <form action="analiz.php" method="GET">
             <select name="q" required>
-                <option value="" disabled selected>Bir yer seçiniz...</option>
-                <option value="Efes Antik Kenti">Efes Antik Kenti (İzmir)</option>
-                <option value="Sümela Manastırı">Sümela Manastırı (Trabzon)</option>
-                <option value="Nemrut Dağı">Nemrut Dağı (Adıyaman)</option>
-                <option value="Göbeklitepe">Göbeklitepe (Şanlıurfa)</option>
-                <option value="Kapadokya">Kapadokya (Nevşehir)</option>
-                <option value="Erzurum Kalesi">Erzurum Kalesi (Erzurum)</option>
-                <option value="Çifte Minareli Medrese">Çifte Minareli Medrese (Erzurum)</option>
-                <option value="İshak Paşa Sarayı">İshak Paşa Sarayı (Ağrı)</option>
-                <option value="Ayasofya">Ayasofya-i Kebir Cami (İstanbul)</option>
-                <option value="Topkapı Sarayı">Topkapı Sarayı (İstanbul)</option>
-                <option value="Ani Harabeleri">Ani Harabeleri (Kars)</option>
-                <option value="Aspendos">Aspendos Antik Tiyatrosu (Antalya)</option>
-                <option value="Hattuşaş">Hattuşaş (Çorum)</option>
-                <option value="Çatalhöyük">Çatalhöyük (Konya)</option>
-                <option value="Zeugma">Zeugma Antik Kenti (Gaziantep)</option>
-            </select>
-            <button type="submit">ANALİZİ VE HARİTAYI GÖR</button>
-        </form>
-    </div>
-
-    <footer>
-        <strong>Nisa Nur Güzel</strong><br>
-        Atatürk Üniversitesi Mezuniyet Projesi © 2026
-    </footer>
-</div>
-
-</body>
-</html>
+                <option value="" disabled selected>Liste içerisinden seçin...</option>
+                <option value="Efes Antik Kenti">Efes Antik Kenti (
