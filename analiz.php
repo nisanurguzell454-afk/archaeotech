@@ -1,26 +1,34 @@
-import sys
-import wikipedia
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ArchaeoTech | Analiz Raporu</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="result-body">
+    <div class="main-wrapper">
+        <header>
+            <h1>ARCHAEOTECH</h1>
+        </header>
 
-wikipedia.set_lang("tr")
+        <div class="content">
+            <?php
+            if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+                $eser_adi = $_POST['eser_adi'] ?? 'Bilinmiyor';
+                $komut = "python3 analiz.py '' " . escapeshellarg($eser_adi) . " '' 2>&1";
+                $cikti = shell_exec($komut);
+                echo $cikti;
+            }
+            ?>
+            <br>
+            <a href="index.php" class="btn-geri">← Yeni Arama Yap</a>
+        </div>
 
-if len(sys.argv) > 2:
-    eser_adi = sys.argv[2]
-    try:
-        # Wikipedia'da ara
-        sayfa = wikipedia.page(eser_adi, auto_suggest=True)
-        # Bilgileri hazırla
-        ozet = sayfa.summary.split('.')[:4] # İlk 4 cümleyi al
-        bilgi_metni = ". ".join(ozet) + "."
-        harita_link = f"https://www.google.com/maps/search/{sayfa.title.replace(' ', '+')}"
-        
-        # PHP'ye HTML formatında gönder
-        print(f"<div class='sonuc-kart'>")
-        print(f"<h2>🏛️ {sayfa.title}</h2>")
-        print(f"<div class='bilgi-metni'>{bilgi_metni}</div>")
-        print(f"<a href='{harita_link}' target='_blank' class='btn-harita'>📍 Haritada Konumunu Gör</a>")
-        print(f"<div class='kaynak'>Kaynak: Wikipedia | <a href='{sayfa.url}' target='_blank'>Devamını Oku</a></div>")
-        print(f"</div>")
-    except:
-        print(f"<div class='hata-mesaji'>🔍 '{eser_adi}' hakkında detaylı bilgi bulunamadı. Lütfen tam adını yazmayı deneyin.</div>")
-else:
-    print("Veri hatası.")
+        <footer>
+            <strong>Nisa Nur Güzel</strong><br>
+            Atatürk Üniversitesi © 2026
+        </footer>
+    </div>
+</body>
+</html>
