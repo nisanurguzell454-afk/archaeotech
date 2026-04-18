@@ -10,7 +10,7 @@
         .container { max-width: 600px; width: 100%; background: white; padding: 30px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); border-top: 6px solid #d4af37; text-align: center; }
         .bilgi { text-align: justify; line-height: 1.8; margin: 20px 0; color: #444; }
         .map-box { border-radius: 15px; overflow: hidden; margin-top: 20px; border: 1px solid #ddd; }
-        .btn-back { display: inline-block; margin-top: 20px; text-decoration: none; color: #8d6e63; font-weight: bold; }
+        .btn-back { display: inline-block; margin-top: 20px; text-decoration: none; color: #8d6e63; font-weight: bold; border-bottom: 2px solid #d4af37; }
     </style>
 </head>
 <body>
@@ -18,6 +18,7 @@
         <?php
         $q = $_GET['q'] ?? '';
         if ($q) {
+            // Wikipedia API'den canlı veri çekiyoruz
             $url = "https://tr.wikipedia.org/api/rest_v1/page/summary/" . urlencode($q);
             $ch = curl_init();
             curl_setopt($ch, CURLOPT_URL, $url);
@@ -29,11 +30,17 @@
             if (isset($data['title']) && $data['title'] != "Not found.") {
                 echo "<h2>🏛️ " . $data['title'] . "</h2>";
                 if (isset($data['originalimage']['source'])) {
-                    echo "<img src='" . $data['originalimage']['source'] . "' style='width:100%; border-radius:15px;'>";
+                    echo "<img src='" . $data['originalimage']['source'] . "' style='width:100%; border-radius:15px; margin-top:20px;'>";
                 }
                 echo "<div class='bilgi'>" . $data['extract'] . "</div>";
-                echo "<div class='map-box'><iframe width='100%' height='300' frameborder='0' src='https://www.google.com/maps/search/" . urlencode($data['title']) . "&output=embed'></iframe></div>";
-            } else { echo "<h2>Sonuç Bulunamadı</h2>"; }
+                
+                // Canlı Google Harita
+                echo "<div class='map-box'>";
+                echo "<iframe width='100%' height='300' frameborder='0' src='https://www.google.com/maps/embed/v1/place?key=BURAYA_API_KEY_GELEBILIR_AMA_BEDAVA_YONTEM_ICIN_ALTTAKI_LINK_DAHA_IYI'></iframe>";
+                // Üstteki bazen API ister, o yüzden en sağlam harita yöntemi:
+                echo "<iframe width='100%' height='300' frameborder='0' src='https://www.google.com/maps/search/" . urlencode($data['title']) . "&output=embed'></iframe>";
+                echo "</div>";
+            } else { echo "<h2>🔍 Sonuç Bulunamadı</h2><p>Lütfen eser adını tam yazın (Örn: Sümela Manastırı).</p>"; }
         }
         ?>
         <a href="index.php" class="btn-back">← Geri Dön</a>
