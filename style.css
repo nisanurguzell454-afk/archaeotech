@@ -1,10 +1,11 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;500;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Montserrat:wght@300;500;700&display=swap');
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
 
 body {
     font-family: 'Montserrat', sans-serif;
-    background: #fdfaf5;
+    /* Antik dokulu arka plan */
+    background: url('https://www.transparenttextures.com/patterns/papyrys.png'), #fdfaf5; 
     color: #3e2723;
     display: flex;
     justify-content: center;
@@ -13,40 +14,134 @@ body {
     text-align: center;
 }
 
-.main-wrapper { width: 100%; max-width: 500px; padding: 20px; }
+.main-wrapper { width: 100%; max-width: 600px; padding: 25px; }
 
 /* Başlık Ayarları */
-header h1 { font-size: 2.2rem; letter-spacing: 5px; color: #5d4037; margin-bottom: 30px; }
+header { margin-bottom: 50px; }
+header h1 {
+    font-family: 'Playfair Display', serif; /* Tarihi dokulu font */
+    font-size: 3rem;
+    letter-spacing: 3px;
+    color: #5d4037;
+    margin-bottom: 10px;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+}
+header p { font-size: 1rem; color: #8d6e63; font-weight: 300; }
 
 /* Kart Tasarımı */
-.search-card, .sonuc-kart {
+.search-card, .rapor-konteyner {
     background: #ffffff;
-    padding: 35px 25px;
-    border-radius: 25px;
-    box-shadow: 0 15px 35px rgba(0,0,0,0.06);
-    border-top: 6px solid #d4af37;
+    padding: 40px;
+    border-radius: 20px;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.08);
+    border-top: 6px solid #d4af37; /* Altın sarısı detay */
+    position: relative;
+    overflow: hidden;
 }
 
 /* Giriş Alanları */
 input[type="text"] {
-    width: 100%; padding: 18px; border: 1px solid #ddd; border-radius: 12px;
-    margin-bottom: 20px; font-size: 1rem; outline: none;
+    width: 100%; padding: 20px; border: 1px solid #e0e0e0; border-radius: 12px;
+    margin-bottom: 25px; font-size: 1rem; font-family: inherit; outline: none;
+    transition: 0.3s;
 }
+input[type="text"]:focus { border-color: #d4af37; }
 
 /* Butonlar */
-.btn-discover, .btn-harita, .btn-geri {
+.btn-discover, .btn-geri {
     display: block; width: 100%; padding: 18px; border: none; border-radius: 12px;
     font-weight: 700; cursor: pointer; text-decoration: none; transition: 0.3s;
 }
 
-.btn-discover { background: #5d4037; color: white; }
-.btn-harita { background: #d4af37; color: white; margin: 20px 0; font-size: 0.9rem; }
-.btn-geri { background: transparent; color: #8d6e63; font-size: 0.8rem; }
+.btn-discover { background: #5d4037; color: white; letter-spacing: 1px; }
+.btn-geri { background: transparent; color: #8d6e63; font-size: 0.8rem; margin-top: 30px; }
 
-.btn-discover:hover { background: #d4af37; }
+.btn-discover:hover { background: #d4af37; transform: translateY(-2px); }
 
-/* Metin Alanları */
-.bilgi-metni { text-align: justify; line-height: 1.8; font-size: 0.95rem; color: #555; margin: 20px 0; }
-.kaynak { font-size: 0.75rem; color: #aaa; }
+/* Rapor Metni ve Harita */
+.rapor-konteyner h2 { color: #5d4037; margin-bottom: 20px; font-family: 'Playfair Display', serif; }
+.bilgi-metni { text-align: justify; line-height: 1.9; font-size: 1rem; color: #444; margin-bottom: 30px; }
+.kaynak { font-size: 0.8rem; color: #aaa; margin-bottom: 40px; }
 
-footer { margin-top: 50px; font-size: 0.8rem; color: #a1887f; }
+.harita-bolumu {
+    margin-top: 40px;
+    padding-top: 30px;
+    border-top: 1px solid #eee;
+    text-align: left;
+}
+.harita-bolumu h3 { margin-bottom: 20px; font-size: 1.1rem; color: #5d4037; }
+
+footer { margin-top: 60px; font-size: 0.8rem; color: #a1887f; line-height: 1.6; }@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Montserrat:wght@300;500;700&display=swap');
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+    font-family: 'Montserrat', sans-serif;
+    /* Antik dokulu arka plan */
+    background: url('https://www.transparenttextures.com/patterns/papyrys.png'), #fdfaf5; 
+    color: #3e2723;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    text-align: center;
+}
+
+.main-wrapper { width: 100%; max-width: 600px; padding: 25px; }
+
+/* Başlık Ayarları */
+header { margin-bottom: 50px; }
+header h1 {
+    font-family: 'Playfair Display', serif; /* Tarihi dokulu font */
+    font-size: 3rem;
+    letter-spacing: 3px;
+    color: #5d4037;
+    margin-bottom: 10px;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+}
+header p { font-size: 1rem; color: #8d6e63; font-weight: 300; }
+
+/* Kart Tasarımı */
+.search-card, .rapor-konteyner {
+    background: #ffffff;
+    padding: 40px;
+    border-radius: 20px;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.08);
+    border-top: 6px solid #d4af37; /* Altın sarısı detay */
+    position: relative;
+    overflow: hidden;
+}
+
+/* Giriş Alanları */
+input[type="text"] {
+    width: 100%; padding: 20px; border: 1px solid #e0e0e0; border-radius: 12px;
+    margin-bottom: 25px; font-size: 1rem; font-family: inherit; outline: none;
+    transition: 0.3s;
+}
+input[type="text"]:focus { border-color: #d4af37; }
+
+/* Butonlar */
+.btn-discover, .btn-geri {
+    display: block; width: 100%; padding: 18px; border: none; border-radius: 12px;
+    font-weight: 700; cursor: pointer; text-decoration: none; transition: 0.3s;
+}
+
+.btn-discover { background: #5d4037; color: white; letter-spacing: 1px; }
+.btn-geri { background: transparent; color: #8d6e63; font-size: 0.8rem; margin-top: 30px; }
+
+.btn-discover:hover { background: #d4af37; transform: translateY(-2px); }
+
+/* Rapor Metni ve Harita */
+.rapor-konteyner h2 { color: #5d4037; margin-bottom: 20px; font-family: 'Playfair Display', serif; }
+.bilgi-metni { text-align: justify; line-height: 1.9; font-size: 1rem; color: #444; margin-bottom: 30px; }
+.kaynak { font-size: 0.8rem; color: #aaa; margin-bottom: 40px; }
+
+.harita-bolumu {
+    margin-top: 40px;
+    padding-top: 30px;
+    border-top: 1px solid #eee;
+    text-align: left;
+}
+.harita-bolumu h3 { margin-bottom: 20px; font-size: 1.1rem; color: #5d4037; }
+
+footer { margin-top: 60px; font-size: 0.8rem; color: #a1887f; line-height: 1.6; }
