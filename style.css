@@ -62,14 +62,6 @@ input[type="text"] {
 . eser-resmi { width: 100%; border-radius: 15px; margin: 20px 0; }
 .info-text { text-align: justify; line-height: 1.8; color: #444; margin: 20px 0; }
 .map-section { margin-top: 30px; text-align: left; }
-.home-bg {
-    background: url('https://w0.peakpx.com/wallpaper/453/193/HD-wallpaper-turkey-historical-places-collage.jpg') no-repeat center center fixed;
-    background-size: cover;
-    min-height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
 .map-section h3 { margin-bottom: 15px; color: #5d4037; font-size: 1rem; }
 
 footer { margin-top: 50px; color: #fff; font-size: 0.8rem; line-height: 1.6; }
