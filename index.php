@@ -5,27 +5,30 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ArchaeoTech | Giriş</title>
     <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
 </head>
-<body class="home-bg">
-    <div class="overlay"></div>
-    <div class="main-wrapper">
+<body>
+    <div class="container">
         <header>
             <h1>ARCHAEOTECH</h1>
-            <p>Türkiye'nin Tarihi Mirasını Keşfedin</p>
+            <p>Tarihi Miras Kayıt Sistemi</p>
         </header>
 
-        <div class="search-card">
-            <h3>🔍 Merak Ettiğiniz Eseri Yazın</h3>
-            <form action="analiz.php" method="post">
-                <input type="text" name="eser_adi" placeholder="Örn: Erzurum Kalesi, Efes, Ayasofya..." required>
-                <button type="submit" class="btn-discover">KEŞFETMEYE BAŞLA</button>
-            </form>
-        </div>
+        <form action="analiz.php" method="post" enctype="multipart/form-data" class="card">
+            <div class="input-group">
+                <label>Eserin Fotoğrafı:</label>
+                <input type="file" name="eser_resmi" required>
+            </div>
+            
+            <div class="input-group">
+                <label>Eserin Adı:</label>
+                <input type="text" name="eser_adi" placeholder="Örn: Ayasofya" required>
+            </div>
 
+            <button type="submit" class="btn">ANALİZİ BAŞLAT</button>
+        </form>
+        
         <footer>
-            <strong>Nisa Nur Güzel</strong><br>
-            Atatürk Üniversitesi Mezuniyet Projesi © 2026
+            <p>Nisa Nur Güzel | 2026</p>
         </footer>
     </div>
 </body>
